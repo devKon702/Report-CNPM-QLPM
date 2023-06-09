@@ -54,9 +54,9 @@ public class XoaSuaPH extends javax.swing.JFrame {
                     + "Where MAPHONG = '" + ph.getMaPhong() + "'";
         try {
             DAO.executeUpdateSp(sql);
+            this.dispose();
             pr.getPr().refreshAll();
             JOptionPane.showMessageDialog(this, "Cập nhật thành công");
-            this.dispose();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Vui lòng kiểm tra lại mã phòng");
         }

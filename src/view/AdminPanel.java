@@ -6,12 +6,14 @@ package view;
 
 import controller.AdminController;
 import dao.NhanVienDAO;
+import dao.TaiKhoanDAO;
 import java.awt.Color;
 import java.util.concurrent.CountDownLatch;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import model.TaiKhoan;
 import view.QLNV.DoiMatKhau;
 import view.QLTB.TraCuuTB;
 import view.QLPH.TraCuuPH;
@@ -49,7 +51,8 @@ public class AdminPanel extends javax.swing.JPanel {
             }).start();
             
             new Thread(()->{
-                tkPanel = new TKPanel();
+                TaiKhoan tk = new TaiKhoanDAO().get(mf.getUserName());
+                tkPanel = new TKPanel(tk.getQuyen());
                 latch.countDown();
             }).start();
             

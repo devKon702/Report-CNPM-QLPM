@@ -10,8 +10,6 @@ import view.TKPanel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,12 +18,17 @@ import javax.swing.JOptionPane;
  */
 public class ThongKeCTPhieuMuon extends javax.swing.JFrame {
 
-    public ThongKeCTPhieuMuon(TKPanel root, String maPM, boolean isQuaHan) {
+    public ThongKeCTPhieuMuon(TKPanel root, String maPM, String tinhTrang) {
         initComponents();
         setLocationRelativeTo(null);
         this.root = root;
         this.maPM = maPM;
-        this.quaHan = isQuaHan;
+        this.tinhTrang = tinhTrang;
+        if(root.getQuyen() == 1){
+            jbtnXoa.setVisible(true);
+            if(!tinhTrang.equals("Đã trả")) jbtnXoa.setEnabled(false);
+        }//Admin
+        else jbtnXoa.setVisible(false);//Nhân viên
         try {
             initTable();
             setLabels();
@@ -46,7 +49,7 @@ public class ThongKeCTPhieuMuon extends javax.swing.JFrame {
                 rs.getString("MSSV"),
                 rs.getString("TENSV"),
                 rs.getString("SDT"),
-                (rs.getInt("TRANGTHAI") == 6 ? (quaHan ? "Quá hạn" : "Đang mượn") : "Đã trả")});
+                (rs.getInt("TRANGTHAI") == 6 ? (tinhTrang.equals("Quá hạn") ? "Quá hạn" : "Đang mượn") : "Đã trả")});
         }
 
     }
@@ -92,6 +95,7 @@ public class ThongKeCTPhieuMuon extends javax.swing.JFrame {
         jlbHanTra = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jlbMaPM = new javax.swing.JLabel();
+        jbtnXoa = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -173,13 +177,23 @@ public class ThongKeCTPhieuMuon extends javax.swing.JFrame {
             .addComponent(jlbMaPM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jbtnXoa.setBackground(new java.awt.Color(255, 204, 204));
+        jbtnXoa.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbtnXoa.setText("Xóa");
+        jbtnXoa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbtnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnXoaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlbPhong)
@@ -201,27 +215,34 @@ public class ThongKeCTPhieuMuon extends javax.swing.JFrame {
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jlbNgayLap)))
-                .addContainerGap(190, Short.MAX_VALUE))
+                .addGap(162, 162, 162)
+                .addComponent(jbtnXoa)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel3)
-                    .addComponent(jlbPhong)
-                    .addComponent(jlbMaNV)
-                    .addComponent(jlbNgayLap))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel7)
-                    .addComponent(jlbTenNV)
-                    .addComponent(jlbHanTra))
-                .addGap(20, 20, 20))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel3)
+                            .addComponent(jlbPhong)
+                            .addComponent(jlbMaNV)
+                            .addComponent(jlbNgayLap))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7)
+                            .addComponent(jlbTenNV)
+                            .addComponent(jlbHanTra)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jbtnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -242,9 +263,22 @@ public class ThongKeCTPhieuMuon extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbtnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnXoaActionPerformed
+        if(JOptionPane.showConfirmDialog(this, "Xác nhận xóa phiếu mượn này","",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+            try {
+                DAO.executeUpdateSp("EXEC sp_XoaPhieuMuon '" + jlbMaPM.getText() +"'");
+                root.filterRows();
+                this.dispose();
+                JOptionPane.showMessageDialog(this, "Xóa thành công");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Lỗi\n" + ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_jbtnXoaActionPerformed
+
     private TKPanel root;
     private String maPM;
-    private boolean quaHan;
+    private String tinhTrang;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
@@ -255,6 +289,7 @@ public class ThongKeCTPhieuMuon extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbtnXoa;
     private javax.swing.JLabel jlbHanTra;
     private javax.swing.JLabel jlbMaNV;
     private javax.swing.JLabel jlbMaPM;

@@ -14,12 +14,11 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import view.QLPM.ThongKeCTPhieuMuon;
 
-
-
 public class TKPanel extends javax.swing.JPanel {
-
-    public TKPanel() {
+    private int quyen;
+    public TKPanel(int quyen) {
         initComponents();
+        this.quyen = quyen;
         refresh();
     }
 
@@ -32,27 +31,6 @@ public class TKPanel extends javax.swing.JPanel {
         jcbDaTra.setSelected(true);
         jcbQuaHan.setSelected(true);
         filterRows();
-    }
-
-    public void tableInit() {
-        try {
-            String sql = "Select MAPM, NHANVIEN.TEN, MAPHONG, THOIDIEMLAP, HAN, TRANGTHAI From PHIEUMUON inner join NHANVIEN on PHIEUMUON.MANV = NHANVIEN.MANV";
-            ResultSet rs = DAO.executeSelectSp(sql);
-            DefaultTableModel tbModel = (DefaultTableModel) jtbPhieuMuon.getModel();
-            tbModel.setRowCount(0);
-            while (rs.next()) {
-                boolean isOutOfDate = isQuaHan(rs.getTimestamp("HAN"));
-                tbModel.addRow(new Object[]{rs.getString("MAPM"),
-                    rs.getString("TEN"),
-                    rs.getString("MAPHONG"),
-                    rs.getString("THOIDIEMLAP"),
-                    rs.getString("HAN"),
-                    (rs.getInt("TRANGTHAI") == 6 ? (isOutOfDate ? "Quá hạn" : "Đang mượn") : "Đã trả")});
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Lỗi tạo bảng");
-        }
-
     }
 
     public void tableInit(String dateStart, String dateEnd) {
@@ -365,7 +343,7 @@ public class TKPanel extends javax.swing.JPanel {
     private void jtbPhieuMuonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbPhieuMuonMouseClicked
         if(evt.getClickCount() == 2 && jtbPhieuMuon.getSelectedRow() != -1){
             int index = jtbPhieuMuon.getSelectedRow();
-            new ThongKeCTPhieuMuon(this,jtbPhieuMuon.getValueAt(index, 0).toString(), jtbPhieuMuon.getValueAt(index, 6).equals("Quá hạn")).setVisible(true);
+            new ThongKeCTPhieuMuon(this,jtbPhieuMuon.getValueAt(index, 0).toString(), jtbPhieuMuon.getValueAt(index, 6).toString()).setVisible(true);
         }
     }//GEN-LAST:event_jtbPhieuMuonMouseClicked
 
@@ -383,4 +361,7 @@ public class TKPanel extends javax.swing.JPanel {
     private javax.swing.JTable jtbPhieuMuon;
     private javax.swing.JTextField jtfTimKiem;
     // End of variables declaration//GEN-END:variables
+    public int getQuyen(){
+        return this.quyen;
+    }
 }

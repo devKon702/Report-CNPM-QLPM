@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
@@ -313,6 +314,7 @@ public class LapPhieuMuon extends javax.swing.JFrame {
         jbtn_XacNhan.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         jbtn_XacNhan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pictrue/done_outline.png"))); // NOI18N
         jbtn_XacNhan.setText("Xác nhận");
+        jbtn_XacNhan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtn_XacNhan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_XacNhanActionPerformed(evt);
@@ -531,7 +533,7 @@ public class LapPhieuMuon extends javax.swing.JFrame {
 
     private void jbtn_CapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_CapNhatActionPerformed
 
-        if (InputValidator.validatePhoneNumber(jtf_sdt.getText())) {
+        if (!InputValidator.validatePhoneNumber(jtf_sdt.getText())) {
             JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ, phải là số gồm 0 và 9 kí tự số liền kề");
             return;
         }
@@ -571,14 +573,28 @@ public class LapPhieuMuon extends javax.swing.JFrame {
         if (confirmed == JOptionPane.YES_OPTION) {
             try {
                 addPhieuMuon();
+                CountDownLatch latch = new CountDownLatch(4);
                 new Thread(() -> {
                     root.refresh();
+                    latch.countDown();
                 }).start();
-                root.getPr().refreshAll();
+                new Thread(() -> {
+                    root.getPr().getTbPanel().refresh();
+                    latch.countDown();
+                }).start();
+                new Thread(() -> {
+                    root.getPr().getPhPanel().timKiem();
+                    latch.countDown();
+                }).start();
+                new Thread(() -> {
+                    root.getPr().getTkPanel().filterRows();
+                    latch.countDown();
+                }).start();
+                latch.await();
                 JOptionPane.showMessageDialog(this, "Thêm phiếu mượn thành công");
                 this.dispose();
-            } catch (SQLException | ParseException ex) {
-                JOptionPane.showMessageDialog(this, "Lỗi thêm thiết bị" + ex.getMessage());
+            } catch (SQLException | ParseException | InterruptedException ex) {
+                JOptionPane.showMessageDialog(this, "Lỗi thêm thiết bị\n" + ex.getMessage());
             }
         }
     }//GEN-LAST:event_jbtn_XacNhanActionPerformed

@@ -4,6 +4,7 @@ package view;
 import java.util.concurrent.CountDownLatch;
 import controller.NhanVienController;
 import dao.NhanVienDAO;
+import dao.TaiKhoanDAO;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -11,6 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import model.Menu;
+import model.TaiKhoan;
 import view.QLNV.DoiMatKhau;
 
 
@@ -63,7 +65,8 @@ public class NhanVienPanel extends javax.swing.JPanel {
                 latch.countDown();
             });
             Thread t4 = new Thread(() -> {
-                tkPanel = new TKPanel();
+                TaiKhoan tk = new TaiKhoanDAO().get(mf.getUserName());
+                tkPanel = new TKPanel(tk.getQuyen());
                 latch.countDown();
             });
             t1.start();

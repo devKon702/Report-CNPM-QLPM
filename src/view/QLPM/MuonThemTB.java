@@ -114,7 +114,10 @@ public class MuonThemTB extends javax.swing.JFrame {
             }
         });
 
+        jbtnCapNhat.setBackground(new java.awt.Color(153, 204, 255));
+        jbtnCapNhat.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jbtnCapNhat.setText("Cập nhật");
+        jbtnCapNhat.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnCapNhat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnCapNhatActionPerformed(evt);
@@ -587,7 +590,7 @@ public class MuonThemTB extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập thông tin sinh viên");
             return;
         }
-        if (InputValidator.validatePhoneNumber(jtfSDT.getText())) {
+        if (!InputValidator.validatePhoneNumber(jtfSDT.getText())) {
             JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ, phải là chuỗi gồm 0 và 9 kí tự số liền kề");
             return;
         }
