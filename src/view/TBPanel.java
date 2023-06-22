@@ -57,6 +57,9 @@ public class TBPanel extends javax.swing.JPanel {
             jcbDangMuon.setSelected(true);
             jcbHong.setSelected(true);
             setDsCheckTrangThai();
+            
+            jtfTimTen.setText("");
+            jtfTimPhong.setText("");
 
             t.join();
         } catch (InterruptedException ex) {
@@ -64,6 +67,13 @@ public class TBPanel extends javax.swing.JPanel {
         }
     }
 
+    public void initTable(){
+        DefaultTableModel tbModel = (DefaultTableModel) jtbThietBi.getModel();
+        tbModel.setRowCount(0);
+        for (ThietBi x1 : new ThietBiDAO().getAll()) {
+            tbModel.addRow(new Object[]{x1.getMa(), x1.getTen(), x1.getTenLoai(), x1.getPhong(), x1.getTenTrangThai()});
+        }
+    }
     public void setDsCheckLoai() {
         dsCheckLoai = new ArrayList<>();
         if (jcbRemote.isSelected()) {
@@ -99,33 +109,20 @@ public class TBPanel extends javax.swing.JPanel {
         }
     }
 
-    public void timKiem() {
+    public void filterRows() {
+        initTable();
+        jtfTimTen.setText(jtfTimTen.getText().trim());
+        jtfTimPhong.setText(jtfTimPhong.getText().trim());
         DefaultTableModel tbModel = (DefaultTableModel) jtbThietBi.getModel();
-        tbModel.setRowCount(0);
-        ArrayList<ThietBi> result = new ArrayList<>();
-        // Lọc phòng, loại và trạng thái
-        String phong = jtfTimPhong.getText().toUpperCase().trim();
-        for (ThietBi x1 : new ThietBiDAO().getAll()) {
-            if (phong.length() != 0) {
-                if (x1.getPhong() != null && !x1.getPhong().contains(phong)) {
-                    continue;
-                }
-            }
-            if (!dsCheckLoai.isEmpty() && checkLoc(x1)) {
-                result.add(x1);
-            }
-        }
-        // Lọc tên
-        String s = jtfTimTen.getText().toLowerCase();
-        if (s.length() == 0) {
-            for (ThietBi x2 : result) {
-                tbModel.addRow(new Object[]{x2.getMa(), x2.getTen(), x2.getTenLoai(), x2.getPhong(), x2.getTenTrangThai()});
-            }
-        } else {
-            for (ThietBi x3 : result) {
-                if (x3.getTen().toLowerCase().contains(s)) {
-                    tbModel.addRow(new Object[]{x3.getMa(), x3.getTen(), x3.getTenLoai(), x3.getPhong(), x3.getTenTrangThai()});
-                }
+        for (int i = tbModel.getRowCount() - 1; i >= 0; i--) {
+            if (!dsCheckTrangThai.contains(tbModel.getValueAt(i, 4).toString())) {
+                tbModel.removeRow(i);
+            } else if (!dsCheckLoai.contains(tbModel.getValueAt(i, 2).toString())) {
+                tbModel.removeRow(i);
+            } else if (!tbModel.getValueAt(i, 1).toString().contains(jtfTimTen.getText())) {
+                tbModel.removeRow(i);
+            } else if (tbModel.getValueAt(i, 3) != null && !tbModel.getValueAt(i, 3).toString().contains(jtfTimPhong.getText().toUpperCase())) {
+                tbModel.removeRow(i);
             }
         }
     }

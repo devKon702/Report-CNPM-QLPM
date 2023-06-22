@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package view;
 
 import controller.AdminController;
@@ -34,11 +31,11 @@ public class AdminPanel extends javax.swing.JPanel {
         
         this.mf = mf;
         jlbUserName.setText(new NhanVienDAO().get(mf.getUserName()).getTen());
-        refreshAll();
+        init();
         AdminController ctrl = new AdminController(this);
     }
     
-    public void refreshAll(){
+    public void init(){
         try {
             LoadingDialog ld = new LoadingDialog(this.mf, "Đang xử lí");
             new Thread(()->{
@@ -63,6 +60,39 @@ public class AdminPanel extends javax.swing.JPanel {
             
             new Thread(()->{
                 phPanel = new TraCuuPH();
+                latch.countDown();
+            }).start();
+            latch.await();
+            ld.setVisible(false);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(AdminPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void updateData(){
+        try {
+            LoadingDialog ld = new LoadingDialog(this.mf, "Đang xử lí");
+            new Thread(()->{
+                ld.setVisible(true);
+            }).start();
+            CountDownLatch latch = new CountDownLatch(4);
+            new Thread(()->{
+                nvPanel.filterRows();
+                latch.countDown();
+            }).start();
+            
+            new Thread(()->{
+                tkPanel.filterRows();
+                latch.countDown();
+            }).start();
+            
+            new Thread(()->{
+                tbPanel.filterRow();
+                latch.countDown();
+            }).start();
+            
+            new Thread(()->{
+                phPanel.filterRow();
                 latch.countDown();
             }).start();
             latch.await();

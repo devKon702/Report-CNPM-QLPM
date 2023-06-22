@@ -6,8 +6,6 @@ package view.QLNV;
 
 import dao.NhanVienDAO;
 import dao.TaiKhoanDAO;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.Random;
 import javax.swing.JOptionPane;
@@ -104,7 +102,8 @@ public class CapNhatNV extends javax.swing.JFrame {
             int opt = JOptionPane.showConfirmDialog(this, "Xác nhận thay đổi thông tin nhân viên", "", JOptionPane.YES_NO_OPTION);
             if (opt == JOptionPane.YES_OPTION) {
                 if (new NhanVienDAO().update(new NhanVien(nv.getMa(), ten, cccd, sdt, email, nv.getNgayLam(), nv.getNgayNghi()))) {
-                    root.refresh();
+                    root.filterRows();
+                    root.getPr().getTkPanel().filterRows();
                     JOptionPane.showMessageDialog(this, "Cập nhật thành công");
                 } else {
                     JOptionPane.showMessageDialog(this, "Thất bại, kiểm tra lại thông tin");
@@ -299,6 +298,7 @@ public class CapNhatNV extends javax.swing.JFrame {
         jbtnCapNhat.setBackground(new java.awt.Color(204, 204, 255));
         jbtnCapNhat.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jbtnCapNhat.setText("Cập nhật");
+        jbtnCapNhat.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnCapNhat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnCapNhatActionPerformed(evt);
@@ -308,6 +308,7 @@ public class CapNhatNV extends javax.swing.JFrame {
         jbtnCapNhatTaiKhoan.setBackground(new java.awt.Color(204, 255, 204));
         jbtnCapNhatTaiKhoan.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jbtnCapNhatTaiKhoan.setText("Cập nhật");
+        jbtnCapNhatTaiKhoan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnCapNhatTaiKhoan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnCapNhatTaiKhoanActionPerformed(evt);
@@ -326,6 +327,7 @@ public class CapNhatNV extends javax.swing.JFrame {
         jbtnNghi.setBackground(new java.awt.Color(255, 204, 204));
         jbtnNghi.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jbtnNghi.setText("Nghỉ làm");
+        jbtnNghi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnNghi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnNghiActionPerformed(evt);
@@ -335,6 +337,7 @@ public class CapNhatNV extends javax.swing.JFrame {
         jbtnReset.setBackground(new java.awt.Color(255, 255, 204));
         jbtnReset.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jbtnReset.setText("Reset");
+        jbtnReset.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnResetActionPerformed(evt);
@@ -367,6 +370,7 @@ public class CapNhatNV extends javax.swing.JFrame {
         jbtnXoa.setBackground(new java.awt.Color(255, 102, 102));
         jbtnXoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jbtnXoa.setText("Xóa");
+        jbtnXoa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnXoa.setEnabled(false);
         jbtnXoa.setName("jbtnXoa"); // NOI18N
         jbtnXoa.addActionListener(new java.awt.event.ActionListener() {

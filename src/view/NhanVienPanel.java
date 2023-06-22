@@ -32,7 +32,7 @@ public class NhanVienPanel extends javax.swing.JPanel {
         this.mf = mf;
         this.userName = mf.getUserName();
         this.jlbUserName.setText(new NhanVienDAO().get(userName).getTen());
-        refreshAll();
+        init();
         NhanVienController ctrl = new NhanVienController(this, jpnMainView, setMenu());
     }
 
@@ -44,6 +44,44 @@ public class NhanVienPanel extends javax.swing.JPanel {
         list.add(new Menu("ThongKe", jlbThongKeMuon, jpnMenu4));
         return list;
     }
+    
+    public void init(){
+        LoadingDialog ld = new LoadingDialog(this.mf, "Đang lấy dữ liệu");
+        new Thread(()->{
+            ld.setVisible(true);
+        }).start();
+        CountDownLatch latch = new CountDownLatch(4);
+        try {
+            Thread t1 = new Thread(() -> {
+                tcPanel = new TCPanel(this);
+                latch.countDown();
+            });
+            Thread t2 = new Thread(() -> {
+                tbPanel = new TBPanel(this);
+                latch.countDown();
+            });
+            Thread t3 = new Thread(() -> {
+                phPanel = new PHPanel(this);
+                latch.countDown();
+            });
+            Thread t4 = new Thread(() -> {
+                tkPanel = new TKPanel(new TaiKhoanDAO().getLoai(userName));
+                latch.countDown();
+            });
+            t1.start();
+            t2.start();
+            t3.start();
+            t4.start();
+            
+            latch.await();
+            ld.setVisible(false);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
+            
+        } finally{
+            ld.setVisible(false);
+        }
+    }
 
     public void refreshAll() {
         LoadingDialog ld = new LoadingDialog(this.mf, "Đang xử lí");
@@ -53,20 +91,19 @@ public class NhanVienPanel extends javax.swing.JPanel {
         CountDownLatch latch = new CountDownLatch(4);
         try {
             Thread t1 = new Thread(() -> {
-                tbPanel = new TBPanel(this);
+                tbPanel.refresh();
                 latch.countDown();
             });
             Thread t2 = new Thread(() -> {
-                phPanel = new PHPanel(this);
+                phPanel.refresh();
                 latch.countDown();
             });
             Thread t3 = new Thread(() -> {
-                tcPanel = new TCPanel(this);
+                tcPanel.refresh();
                 latch.countDown();
             });
             Thread t4 = new Thread(() -> {
-                TaiKhoan tk = new TaiKhoanDAO().get(mf.getUserName());
-                tkPanel = new TKPanel(tk.getQuyen());
+                tkPanel.refresh();
                 latch.countDown();
             });
             t1.start();
@@ -75,7 +112,44 @@ public class NhanVienPanel extends javax.swing.JPanel {
             t4.start();
             
             latch.await();
+            ld.setVisible(false);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            ld.setVisible(false);
+        }
+    }
+    
+    public void updateData(JFrame frame){
+        LoadingDialog ld = new LoadingDialog(frame, "Đang cập nhật");
+        new Thread(()->{
+            ld.setVisible(true);
+        }).start();
+        CountDownLatch latch = new CountDownLatch(4);
+        try {
+            Thread t1 = new Thread(() -> {
+                tbPanel.filterRows();
+                latch.countDown();
+            });
+            Thread t2 = new Thread(() -> {
+                phPanel.filterRows();
+                latch.countDown();
+            });
+            Thread t3 = new Thread(() -> {
+                tcPanel.filter();
+                latch.countDown();
+            });
+            Thread t4 = new Thread(() -> {
+                tkPanel.filterRows();
+                latch.countDown();
+            });
+            t1.start();
+            t2.start();
+            t3.start();
+            t4.start();
             
+            latch.await();
+            ld.setVisible(false);
         } catch (InterruptedException ex) {
             Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
         } finally{

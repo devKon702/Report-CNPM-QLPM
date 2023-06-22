@@ -6,9 +6,6 @@ import dao.LoaiDAO;
 import dao.PhongHocDAO;
 import dao.ThietBiDAO;
 import dao.TrangThaiDAO;
-import java.awt.Color;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
 
 public class XoaSuaTB extends javax.swing.JFrame {
@@ -29,13 +26,23 @@ public class XoaSuaTB extends javax.swing.JFrame {
     }
 
     public void sua() {
+        String tenTB = jtfTen.getText().trim();
+        String phong = jtfPhong.getText().trim().toUpperCase();
+        if(tenTB.length()>50){
+            JOptionPane.showMessageDialog(this, "Tên không dài quá 50 kí tự");
+            return;
+        }
+        if(tenTB.matches("[^A-Za-z0-9 ]")){
+            JOptionPane.showMessageDialog(this, "Vui lòng kiểm tra lại tên, tên không bao gồm kí tự đặc biệt");
+            return;
+        }
         ThietBi x = new ThietBiDAO().getThietBi(jtfMa.getText());
         if (x != null) {
-            x.setTen(jtfTen.getText());
+            x.setTen(tenTB);
             x.setTenLoai(jcbLoai.getSelectedItem().toString());
-            if (jtfPhong.getText().length() != 0) {
-                if (new PhongHocDAO().getPhongHoc(jtfPhong.getText().toUpperCase()) != null) {
-                    x.setPhong(jtfPhong.getText().toUpperCase());
+            if (phong.length() != 0) {
+                if (new PhongHocDAO().getPhongHoc(phong) != null) {
+                    x.setPhong(phong);
                 } else {
                     JOptionPane.showMessageDialog(this, "Không tồn tại phòng");
                     return;
@@ -44,12 +51,12 @@ public class XoaSuaTB extends javax.swing.JFrame {
                 x.setPhong(null);
             }
             x.setTenTrangThai(jcbTrangThai.getSelectedItem().toString());
-            if (JOptionPane.showConfirmDialog(this, "Xác nhận sửa thông tin", "", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            if (JOptionPane.showConfirmDialog(this, "Xác nhận sửa thông tin?", "", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 if (!new ThietBiDAO().update(x)) {
                     JOptionPane.showMessageDialog(this, "Cập nhật thông tin thất bại");
                 } else {
-                    pr.timKiem();
-                    pr.getPr().getPhPanel().timKiem();
+                    pr.filterRows();
+                    pr.getPr().getPhPanel().filterRows();
                     JOptionPane.showMessageDialog(this, "Cập nhật thành công");
                     this.dispose();
                 }
@@ -64,18 +71,18 @@ public class XoaSuaTB extends javax.swing.JFrame {
         if (opt == JOptionPane.YES_OPTION) {
             ThietBi x = new ThietBiDAO().getThietBi(jtfMa.getText());
             if (!new ThietBiDAO().delete(x)) {
-                JOptionPane.showMessageDialog(this, "Không thể xóa do thiết bị đã từng được mượn");
+                JOptionPane.showMessageDialog(this, "Không thể xóa do có phiếu mượn liên quan");
             } else {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        pr.timKiem();
+                        pr.filterRows();
                     }
                 }).start();
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        pr.getPr().getPhPanel().timKiem();
+                        pr.getPr().getPhPanel().filterRows();
                     }
                 }).start();
                 JOptionPane.showMessageDialog(this, "Xóa thành công");

@@ -5,9 +5,6 @@
 package view.QLPH;
 
 import dao.PhongHocDAO;
-import java.awt.Color;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
 import model.PhongHoc;
 import view.PHPanel;
@@ -29,20 +26,20 @@ public class ThemPH extends javax.swing.JFrame {
     public void them() {
         String s = jtfMaPhong.getText().toUpperCase();
         if (!s.matches("^[A-Za-z0-9]{1,4}$")) {
-            JOptionPane.showMessageDialog(this, "Mã phòng có dưới 4 kí tự, không chứa kí tự đặc biệt và khoảng trống");
+            JOptionPane.showMessageDialog(this, "Vui lòng điền mã phòng có từ 4 kí tự trở xuống, không chứa kí tự đặc biệt và khoảng trống");
             return;
         }
         if (new PhongHocDAO().insert(new PhongHoc(s, 3))) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    pr.refreshTable();
+                    pr.filterRows();
                 }
             }).start();
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    pr.getPr().getTcPanel().refresh();
+                    pr.getPr().getTcPanel().filter();
                 }
             }).start();
             JOptionPane.showMessageDialog(this, "Thêm thành công");

@@ -25,10 +25,6 @@ import javax.swing.JOptionPane;
 import model.InputValidator;
 import view.TCPanel;
 
-/**
- *
- * @author henry
- */
 public class LapPhieuMuon extends javax.swing.JFrame {
 
     public LapPhieuMuon(TCPanel root) {
@@ -83,12 +79,12 @@ public class LapPhieuMuon extends javax.swing.JFrame {
         jbtn_XacNhan = new javax.swing.JButton();
         jlabel_Key = new javax.swing.JLabel();
         jPanel_Key = new javax.swing.JPanel();
-        jPanel_MICRO = new javax.swing.JPanel();
         jPanel_REMOTE = new javax.swing.JPanel();
         jlabel_daymr = new javax.swing.JLabel();
         jPanel_DayMicro = new javax.swing.JPanel();
         jPanel_HDMI = new javax.swing.JPanel();
         jPanel_TYPEC = new javax.swing.JPanel();
+        jPanel_MICRO = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Tạo phiếu mượn");
@@ -118,7 +114,7 @@ public class LapPhieuMuon extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         jLabel1.setText("Hạn trả");
 
-        jbtn_CapNhat.setBackground(new java.awt.Color(204, 255, 255));
+        jbtn_CapNhat.setBackground(new java.awt.Color(153, 204, 255));
         jbtn_CapNhat.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jbtn_CapNhat.setText("Cập nhật");
         jbtn_CapNhat.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -288,7 +284,7 @@ public class LapPhieuMuon extends javax.swing.JFrame {
                     .addComponent(jLabel6_tg_tra)
                     .addComponent(jlbHan))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel_tt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel_tt, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
                 .addGap(66, 66, 66))
         );
 
@@ -336,19 +332,6 @@ public class LapPhieuMuon extends javax.swing.JFrame {
         jPanel_KeyLayout.setVerticalGroup(
             jPanel_KeyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        jPanel_MICRO.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel_MICROLayout = new javax.swing.GroupLayout(jPanel_MICRO);
-        jPanel_MICRO.setLayout(jPanel_MICROLayout);
-        jPanel_MICROLayout.setHorizontalGroup(
-            jPanel_MICROLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 120, Short.MAX_VALUE)
-        );
-        jPanel_MICROLayout.setVerticalGroup(
-            jPanel_MICROLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 180, Short.MAX_VALUE)
         );
 
         jPanel_REMOTE.setBackground(new java.awt.Color(255, 255, 255));
@@ -407,6 +390,19 @@ public class LapPhieuMuon extends javax.swing.JFrame {
             .addGap(0, 180, Short.MAX_VALUE)
         );
 
+        jPanel_MICRO.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel_MICROLayout = new javax.swing.GroupLayout(jPanel_MICRO);
+        jPanel_MICRO.setLayout(jPanel_MICROLayout);
+        jPanel_MICROLayout.setHorizontalGroup(
+            jPanel_MICROLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 122, Short.MAX_VALUE)
+        );
+        jPanel_MICROLayout.setVerticalGroup(
+            jPanel_MICROLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -428,7 +424,7 @@ public class LapPhieuMuon extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlabel_micro, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel_MICRO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
+                .addGap(48, 48, 48)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlabel_Remote)
                     .addComponent(jPanel_REMOTE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -451,18 +447,21 @@ public class LapPhieuMuon extends javax.swing.JFrame {
                             .addComponent(jlabel_HDMI)
                             .addComponent(jlabel_TypeC))
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addComponent(jbtn_XacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel_HDMI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel_TYPEC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel_MICRO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jPanel_MICRO, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addGap(15, 15, 15)
+                                        .addComponent(jbtn_XacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jPanel_HDMI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jPanel_TYPEC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 22, Short.MAX_VALUE))))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jlabel_Remote)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -475,15 +474,15 @@ public class LapPhieuMuon extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel_DayMicro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel_Key, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel_Key.setLayout(new BoxLayout(jPanel_Key, BoxLayout.Y_AXIS));
-        jPanel_MICRO.setLayout(new BoxLayout(jPanel_MICRO, BoxLayout.Y_AXIS));
         jPanel_REMOTE.setLayout(new BoxLayout(jPanel_REMOTE, BoxLayout.Y_AXIS));
         jPanel_DayMicro.setLayout(new BoxLayout(jPanel_DayMicro, BoxLayout.Y_AXIS));
         jPanel_HDMI.setLayout(new BoxLayout(jPanel_HDMI, BoxLayout.Y_AXIS));
         jPanel_TYPEC.setLayout(new BoxLayout(jPanel_TYPEC, BoxLayout.Y_AXIS));
+        jPanel_MICRO.setLayout(new BoxLayout(jPanel_MICRO, BoxLayout.Y_AXIS));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -532,22 +531,21 @@ public class LapPhieuMuon extends javax.swing.JFrame {
         setsdt(sc);    }//GEN-LAST:event_jtf_sdtActionPerformed
 
     private void jbtn_CapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_CapNhatActionPerformed
-
-        if (!InputValidator.validatePhoneNumber(jtf_sdt.getText())) {
-            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ, phải là số gồm 0 và 9 kí tự số liền kề");
-            return;
-        }
         jtf_mssv.setText(jtf_mssv.getText().trim().toUpperCase());
         if (jtf_mssv.getText().length() == 0) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập MSSV");
             return;
         }
-
         SinhVien sv = SinhVien.getSinhVien(jtf_mssv.getText());
         if (sv == null) {
             JOptionPane.showMessageDialog(this, "Không tìm được sinh viên");
             return;
         }
+        if (!InputValidator.validatePhoneNumber(jtf_sdt.getText())) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ, phải là số gồm 0 và 9 kí tự số liền kề");
+            return;
+        }
+        
         setname(sv.getTEN());
         setmssv(sv.getMSSV());
         setsdt(jtf_sdt.getText());
@@ -573,27 +571,10 @@ public class LapPhieuMuon extends javax.swing.JFrame {
         if (confirmed == JOptionPane.YES_OPTION) {
             try {
                 addPhieuMuon();
-                CountDownLatch latch = new CountDownLatch(4);
-                new Thread(() -> {
-                    root.refresh();
-                    latch.countDown();
-                }).start();
-                new Thread(() -> {
-                    root.getPr().getTbPanel().refresh();
-                    latch.countDown();
-                }).start();
-                new Thread(() -> {
-                    root.getPr().getPhPanel().timKiem();
-                    latch.countDown();
-                }).start();
-                new Thread(() -> {
-                    root.getPr().getTkPanel().filterRows();
-                    latch.countDown();
-                }).start();
-                latch.await();
+                root.getPr().updateData(this);
                 JOptionPane.showMessageDialog(this, "Thêm phiếu mượn thành công");
                 this.dispose();
-            } catch (SQLException | ParseException | InterruptedException ex) {
+            } catch (SQLException | ParseException  ex) {
                 JOptionPane.showMessageDialog(this, "Lỗi thêm thiết bị\n" + ex.getMessage());
             }
         }
@@ -973,7 +954,7 @@ public class LapPhieuMuon extends javax.swing.JFrame {
 
         conn = DatabaseHelper.getConnection();
         String MaTrangThai = "6";
-        int Sdt = Integer.parseInt(jlbSDT.getText());
+        String Sdt = jlbSDT.getText();
 
         String sql = "INSERT INTO CTPHIEUMUON (MAPM, MATB, TRANGTHAI, MSSV, SDT) VALUES (?, ?, ?, ?, ?)";
 
@@ -984,7 +965,7 @@ public class LapPhieuMuon extends javax.swing.JFrame {
         stmt.setString(2, MaTB);
         stmt.setString(3, MaTrangThai);
         stmt.setString(4, Mssv);
-        stmt.setInt(5, Sdt);
+        stmt.setString(5, Sdt);
 
         // Thực hiện câu lệnh SQL INSERT
         stmt.executeUpdate();

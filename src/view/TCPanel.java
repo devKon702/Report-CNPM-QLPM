@@ -1,13 +1,11 @@
 package view;
 
 import dao.DAO;
-import database.PhieuMuon;
 import database.PhongHoc;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.sql.ResultSet;
@@ -17,7 +15,6 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import view.QLPM.LapPhieuMuon;
@@ -64,6 +61,7 @@ public class TCPanel extends javax.swing.JPanel {
         jbtnMuon = new javax.swing.JButton();
         jLabel_tt = new javax.swing.JLabel();
         jbtnTra = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jpnMain = new javax.swing.JPanel();
 
@@ -90,6 +88,7 @@ public class TCPanel extends javax.swing.JPanel {
         jbtnMuon.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         jbtnMuon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pictrue/real_estate_agent.png"))); // NOI18N
         jbtnMuon.setText("Mượn");
+        jbtnMuon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnMuon.setEnabled(false);
         jbtnMuon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,10 +99,22 @@ public class TCPanel extends javax.swing.JPanel {
         jbtnTra.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         jbtnTra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pictrue/autorenew.png"))); // NOI18N
         jbtnTra.setText("Trả");
+        jbtnTra.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnTra.setEnabled(false);
         jbtnTra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnTraActionPerformed(evt);
+            }
+        });
+
+        jButton1.setBackground(new java.awt.Color(204, 255, 204));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pictrue/autorenew.png"))); // NOI18N
+        jButton1.setText("Tải lại");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -118,7 +129,9 @@ public class TCPanel extends javax.swing.JPanel {
                 .addComponent(jtfTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(158, 158, 158)
                 .addComponent(jLabel_tt, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 216, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addComponent(jlbPhongHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -142,9 +155,10 @@ public class TCPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jtfTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                    .addComponent(jtfTimKiem)
                     .addComponent(jLabel_tt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1_timkiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1_timkiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -206,9 +220,13 @@ public class TCPanel extends javax.swing.JPanel {
 
     private void jtfTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTimKiemKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            timkiem();
+            filter();
         }
     }//GEN-LAST:event_jtfTimKiemKeyReleased
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        refresh();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public void initPhongBtns() {
         jpnMain.removeAll();
@@ -308,7 +326,7 @@ public class TCPanel extends javax.swing.JPanel {
         }
     }
 
-    public void timkiem() {
+    public void filter() {
         String text = jtfTimKiem.getText().toUpperCase();
         initPhongBtns();
         for (JButton btn : JbuttonPhonghoc) {
@@ -327,15 +345,12 @@ public class TCPanel extends javax.swing.JPanel {
     
 
     private NhanVienPanel pr;
-    private MuonThemTB Muon_Them;
     private String tentk;
-    private boolean check = true;
     private List<JButton> JbuttonPhonghoc;
     private List<PhongHoc> listphonghoc;
-    private TraTB Tra_Phong_Hoc;
-    private LapPhieuMuon Muon_Phong_Hoc;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1_timkiem;
     private javax.swing.JLabel jLabel_tt;
     private javax.swing.JPanel jPanel1;

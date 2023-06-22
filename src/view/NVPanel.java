@@ -16,7 +16,6 @@ import dao.NhanVienDAO;
 import dao.TaiKhoanDAO;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
-import model.InputValidator;
 
 /**
  *
@@ -25,8 +24,8 @@ import model.InputValidator;
 import javax.swing.table.DefaultTableModel;
 import model.InputValidator;
 import model.NhanVien;
-import model.StringNormalizer;
 import model.TaiKhoan;
+import view.QLNV.CapNhatNV;
 import view.QLNV.ThemNV;
 
 public class NVPanel extends javax.swing.JPanel {
@@ -36,7 +35,7 @@ public class NVPanel extends javax.swing.JPanel {
     public NVPanel(AdminPanel pr) {
         initComponents();
         this.pr = pr;
-        QLNVController ctrl = new QLNVController(this);
+        //QLNVController ctrl = new QLNVController(this);
         refresh();
     }
 
@@ -68,7 +67,7 @@ public class NVPanel extends javax.swing.JPanel {
         jtfSDT.setText("");
     }
 
-    public void timKiem() {
+    public void filterRows() {
         String text = jtfTim.getText();
         if (text.length() == 0) {
             DefaultTableModel model = (DefaultTableModel) jtbNhanVien.getModel();
@@ -183,6 +182,11 @@ public class NVPanel extends javax.swing.JPanel {
             }
         });
         jtbNhanVien.setRowHeight(30);
+        jtbNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtbNhanVienMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtbNhanVien);
         if (jtbNhanVien.getColumnModel().getColumnCount() > 0) {
             jtbNhanVien.getColumnModel().getColumn(0).setResizable(false);
@@ -207,6 +211,7 @@ public class NVPanel extends javax.swing.JPanel {
         jbtnThem.setBackground(new java.awt.Color(153, 255, 153));
         jbtnThem.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jbtnThem.setText("Thêm");
+        jbtnThem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnThemActionPerformed(evt);
@@ -315,42 +320,54 @@ public class NVPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnThemActionPerformed
-        
+
         if (jtfTen.getText().trim().equals("") || jtfCCCD.getText().trim().equals("") || jtfEmail.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Các thông tin tên, cccd, email không được để trống");
             return;
-        } 
-        if(!InputValidator.validateIdentityCard(jtfCCCD.getText())){
+        }
+        if (!InputValidator.validateIdentityCard(jtfCCCD.getText())) {
             JOptionPane.showMessageDialog(this, "CCCD có 10 hoặc 12 kí tự số, vui lòng kiểm tra lại");
             return;
         }
-        if(!InputValidator.validateEmail(jtfEmail.getText())){
+        if (!InputValidator.validateEmail(jtfEmail.getText())) {
             JOptionPane.showMessageDialog(this, "Vui lòng kiểm tra lại email");
             return;
         }
-        if(!jtfSDT.getText().isEmpty() && !InputValidator.validatePhoneNumber(jtfSDT.getText())){
+        if (!jtfSDT.getText().isEmpty() && !InputValidator.validatePhoneNumber(jtfSDT.getText())) {
             JOptionPane.showMessageDialog(this, "Số điện thoại bắt đàu là 0 và 9 kí tự số liền kề, vui lòng kiểm tra lại");
             return;
         }
-        if(!InputValidator.validateFullName(jtfTen.getText())){
+        if (!InputValidator.validateFullName(jtfTen.getText())) {
             JOptionPane.showMessageDialog(this, "Tên không được chứa số và kí tự đặc biệt");
             return;
         }
-        
+
         new ThemNV(this).setVisible(true);
     }//GEN-LAST:event_jbtnThemActionPerformed
 
     private void jtfTimKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTimKeyTyped
         if (evt.getKeyCode() == KeyEvent.VK_0) {
-            timKiem();
+            filterRows();
         }
     }//GEN-LAST:event_jtfTimKeyTyped
 
     private void jtfTimKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTimKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            timKiem();
+            filterRows();
         }
     }//GEN-LAST:event_jtfTimKeyReleased
+
+    private void jtbNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbNhanVienMouseClicked
+        int index = jtbNhanVien.getSelectedRow();
+        if (evt.getClickCount() == 2 && index != -1) {
+            NhanVien a = new NhanVienDAO().get((String) jtbNhanVien.getValueAt(index, 0));
+            if (a.getMa().equals(getPr().getMf().getUserName())) {
+                JOptionPane.showMessageDialog(this, "Tài khoản hiện tại");
+            } else {
+                new CapNhatNV(a, this).setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_jtbNhanVienMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

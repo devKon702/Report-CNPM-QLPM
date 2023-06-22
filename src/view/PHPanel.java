@@ -1,26 +1,25 @@
 
 package view;
-import controller.QLPHController;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 import dao.PhongHocDAO;
 import dao.TrangThaiDAO;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.event.KeyEvent;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import model.PhongHoc;
 import model.ThietBi;
 import model.TrangThai;
 import view.QLPH.ThemPH;
+import view.QLPH.XoaSuaPH;
 
 
 public class PHPanel extends javax.swing.JPanel {
     private NhanVienPanel pr;
     private ArrayList<String> checkTrangThai;
-    private ArrayList<PhongHoc> dsPhong;   //Lưu thông tin thiết bị trong từng phòng, theo từng loại
     
     public PHPanel(NhanVienPanel pr) {
         initComponents();
@@ -28,10 +27,6 @@ public class PHPanel extends javax.swing.JPanel {
         checkTrangThai = new ArrayList<>();
         for(TrangThai x : new PhongHocDAO().getTrangThaiPhongHoc()){
             checkTrangThai.add(x.getTen());
-        }
-        dsPhong = new ArrayList<>();
-        for(PhongHoc x : new PhongHocDAO().getAll()){
-            dsPhong.add(x);
         }
         if(checkTrangThai.size() == 3){
             jcb1.setText(checkTrangThai.get(0));
@@ -41,16 +36,25 @@ public class PHPanel extends javax.swing.JPanel {
             jcb2.setSelected(true);
             jcb3.setSelected(true);
         }
-        QLPHController ctrl = new QLPHController(this);
-        refreshTable();
+        //QLPHController ctrl = new QLPHController(this);
+        initTable();
     }
-    public void timKiem(){
+    
+    public void refresh(){
+        jtfTimPhong.setText("");
+        initTable();
+        jcb1.setSelected(true);
+        jcb2.setSelected(true);
+        jcb3.setSelected(true);
+    }
+    
+    public void filterRows(){
         String maPhong = jtfTimPhong.getText().toUpperCase().trim();
         DefaultTableModel model = (DefaultTableModel) jtbPhongHoc.getModel();
         model.setRowCount(0);
         if(maPhong.length()!=0){
             for(PhongHoc x : new PhongHocDAO().getAll()){
-                if(checkTrangThai.contains(new TrangThaiDAO().getTenTrangThai(x.getMaTrangThai()    )) && x.getMaPhong().contains(maPhong)){
+                if(checkTrangThai.contains(new TrangThaiDAO().getTenTrangThai(x.getMaTrangThai())) && x.getMaPhong().contains(maPhong)){
                     String ct = "";
                     Map<String,ArrayList<ThietBi>> tmp = x.getMapLoai_ThietBi();
                     for(String loai : tmp.keySet()){
@@ -73,7 +77,7 @@ public class PHPanel extends javax.swing.JPanel {
             }
         }
     }
-    public void refreshTable(){
+    public void initTable(){
         DefaultTableModel model = (DefaultTableModel) jtbPhongHoc.getModel();
         model.setRowCount(0);
         for(PhongHoc x : new PhongHocDAO().getAll()){
@@ -139,6 +143,11 @@ public class PHPanel extends javax.swing.JPanel {
             }
         });
         jtbPhongHoc.setRowHeight(30);
+        jtbPhongHoc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtbPhongHocMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtbPhongHoc);
         if (jtbPhongHoc.getColumnModel().getColumnCount() > 0) {
             jtbPhongHoc.getColumnModel().getColumn(0).setMinWidth(50);
@@ -151,14 +160,35 @@ public class PHPanel extends javax.swing.JPanel {
 
         jPanel3.setBackground(new java.awt.Color(204, 255, 204));
 
+        jtfTimPhong.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfTimPhongKeyReleased(evt);
+            }
+        });
+
         jLabel3.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jLabel3.setText("Phòng");
 
         jcb3.setText("Bảo trì");
+        jcb3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcb3ActionPerformed(evt);
+            }
+        });
 
         jcb2.setText("Mượn");
+        jcb2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcb2ActionPerformed(evt);
+            }
+        });
 
         jcb1.setText("Trống");
+        jcb1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcb1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -188,7 +218,7 @@ public class PHPanel extends javax.swing.JPanel {
         jLabel4.setText("Trạng thái");
 
         jButton1.setBackground(new java.awt.Color(204, 204, 204));
-        jButton1.setText("Tìm");
+        jButton1.setText("Tải lại");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -270,17 +300,58 @@ public class PHPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            Thread.sleep(200);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(PHPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        timKiem();
+        refresh();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         new ThemPH(this).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jtbPhongHocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbPhongHocMouseClicked
+        if(evt.getClickCount() == 2 && jtbPhongHoc.getSelectedRow() != -1){
+                    String maPhong = (String)jtbPhongHoc.getValueAt(jtbPhongHoc.getSelectedRow(), 0);
+                    PhongHoc ph = new PhongHocDAO().getPhongHoc(maPhong);
+                    if(new TrangThaiDAO().getTenTrangThai(ph.getMaTrangThai()).equals("Đang mượn")){
+                        JOptionPane.showMessageDialog(this, "Phòng học đang được mượn");
+                    }
+                    else{
+                        new XoaSuaPH(this,ph).setVisible(true);
+                    }
+                }
+    }//GEN-LAST:event_jtbPhongHocMouseClicked
+
+    private void jcb1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb1ActionPerformed
+        JCheckBox x = (JCheckBox)evt.getSource();
+        if(x.isSelected()){
+            checkTrangThai.add(x.getText());
+        }
+        else checkTrangThai.remove(x.getText());
+        filterRows();
+    }//GEN-LAST:event_jcb1ActionPerformed
+
+    private void jcb2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb2ActionPerformed
+        JCheckBox x = (JCheckBox)evt.getSource();
+        if(x.isSelected()){
+            checkTrangThai.add(x.getText());
+        }
+        else checkTrangThai.remove(x.getText());
+        filterRows();
+    }//GEN-LAST:event_jcb2ActionPerformed
+
+    private void jcb3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb3ActionPerformed
+        JCheckBox x = (JCheckBox)evt.getSource();
+        if(x.isSelected()){
+            checkTrangThai.add(x.getText());
+        }
+        else checkTrangThai.remove(x.getText());
+        filterRows();
+    }//GEN-LAST:event_jcb3ActionPerformed
+
+    private void jtfTimPhongKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTimPhongKeyReleased
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            filterRows();
+        }
+    }//GEN-LAST:event_jtfTimPhongKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -305,10 +376,6 @@ public class PHPanel extends javax.swing.JPanel {
 
     public ArrayList<String> getCheckTrangThai() {
         return checkTrangThai;
-    }
-
-    public ArrayList<PhongHoc> getDsPhong() {
-        return dsPhong;
     }
 
     public JCheckBox getJcb1() {

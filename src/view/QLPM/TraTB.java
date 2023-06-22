@@ -5,14 +5,7 @@
 package view.QLPM;
 
 import dao.DAO;
-import dao.NhanVienDAO;
-import database.CTPhieuMuon;
-import database.PhieuMuon;
-import database.TTPhieuMuon;
-import database.TablePhieuMuon;
 import database.ThietBi;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -792,7 +785,7 @@ public class TraTB extends javax.swing.JFrame {
                         try {
                             DAO.executeUpdateSp("Update PHIEUMUON SET TRANGTHAI = 7 WHERE MAPM = '" + jlbMaPM.getText() + "'");
                             root.refresh();
-                            root.getPr().refreshAll();
+                            root.getPr().updateData(this);
                             JOptionPane.showMessageDialog(this, "Trả phòng thành công");
                             this.dispose();
                         } catch (SQLException ex) {
@@ -819,8 +812,8 @@ public class TraTB extends javax.swing.JFrame {
             }
             themThietBi();
             refreshTable();
-            root.getPr().getTbPanel().refresh();
-            root.getPr().getTkPanel().refresh();
+            root.getPr().getTbPanel().filterRows();
+            root.getPr().getTkPanel().filterRows();
             JOptionPane.showMessageDialog(this, "Trả thiết bị thành công");
         }
     }

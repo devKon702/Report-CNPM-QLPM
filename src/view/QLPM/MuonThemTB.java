@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view.QLPM;
 
 import dao.DAO;
@@ -150,6 +146,7 @@ public class MuonThemTB extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtbCTPhieuMuon.setRowHeight(30);
         jScrollPane1.setViewportView(jtbCTPhieuMuon);
         if (jtbCTPhieuMuon.getColumnModel().getColumnCount() > 0) {
             jtbCTPhieuMuon.getColumnModel().getColumn(2).setPreferredWidth(100);
@@ -343,6 +340,7 @@ public class MuonThemTB extends javax.swing.JFrame {
         jbtnMuon.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         jbtnMuon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pictrue/done_outline.png"))); // NOI18N
         jbtnMuon.setText("Mượn");
+        jbtnMuon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnMuon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnMuonActionPerformed(evt);
@@ -490,7 +488,7 @@ public class MuonThemTB extends javax.swing.JFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(15, 15, 15)
                                 .addComponent(jbtnMuon, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 14, Short.MAX_VALUE))
+                                .addGap(0, 30, Short.MAX_VALUE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel_TYPEC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -538,7 +536,7 @@ public class MuonThemTB extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 16, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -564,8 +562,10 @@ public class MuonThemTB extends javax.swing.JFrame {
             return;
         }
         jlbPhongHoc.setText(pm.getMAPHONG());
+        jlbTenSv.setText("");
         jlbMSSV.setText("");
         jlbEmail.setText("");
+        jlbSDT.setText("");
         jlbNgayMuon.setText(pm.getTHOIDIEMLAP());
         jlbHan.setText(pm.getHAN());
 
@@ -928,13 +928,13 @@ public class MuonThemTB extends javax.swing.JFrame {
             if (confirmed == JOptionPane.YES_OPTION) {
                 try {
                     addPhieuMuon();
-                    LoadingDialog ld = new LoadingDialog(this, "Đang xử lí");
+                    LoadingDialog ld = new LoadingDialog(this, "Đang cập nhật");
                     new Thread(()->{
                         ld.setVisible(true);
                     }).start();
                     themThietBi();
                     initTable();
-                    root.getPr().getTbPanel().refresh();
+                    root.getPr().getTbPanel().filterRows();
                     ld.setVisible(false);
                     JOptionPane.showMessageDialog(this, "Mượn thêm thành công");
                 } catch (SQLException ex) {

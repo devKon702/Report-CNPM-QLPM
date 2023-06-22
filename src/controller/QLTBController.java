@@ -100,7 +100,7 @@ public class QLTBController {
             switch (this.jlb.getName()) {
                 case "Tim":
                     new Thread(() -> {
-                        root.timKiem();
+                        root.filterRows();
                     }).start();
                     break;
                 case "ThemThietBi":

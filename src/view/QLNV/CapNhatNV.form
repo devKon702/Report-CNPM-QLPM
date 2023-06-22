@@ -291,6 +291,9 @@
               <Font name="SansSerif" size="12" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="C&#xe2;&#x323;p nh&#xe2;&#x323;t"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnCapNhatActionPerformed"/>
@@ -305,6 +308,9 @@
               <Font name="SansSerif" size="12" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="C&#xe2;&#x323;p nh&#xe2;&#x323;t"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnCapNhatTaiKhoanActionPerformed"/>
@@ -343,6 +349,9 @@
               <Font name="SansSerif" size="12" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Nghi&#x309; la&#x300;m"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnNghiActionPerformed"/>
@@ -357,6 +366,9 @@
               <Font name="SansSerif" size="12" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Reset"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnResetActionPerformed"/>
@@ -410,6 +422,9 @@
               <Font name="Segoe UI" size="12" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="jbtnXoa" noResource="true"/>
           </Properties>

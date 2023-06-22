@@ -83,6 +83,7 @@ public class DangNhapPanel extends javax.swing.JPanel {
         jlbQuen.setForeground(new java.awt.Color(255, 255, 255));
         jlbQuen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbQuen.setText("Quên mật khẩu");
+        jlbQuen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jlbQuen.setName("jlbQuen"); // NOI18N
         jlbQuen.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -100,6 +101,7 @@ public class DangNhapPanel extends javax.swing.JPanel {
         jbtnDangNhap.setFont(new java.awt.Font("Montserrat ExtraBold", 0, 14)); // NOI18N
         jbtnDangNhap.setForeground(new java.awt.Color(192, 238, 242));
         jbtnDangNhap.setBorder(null);
+        jbtnDangNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnDangNhap.setLabel("Đăng nhập");
         jbtnDangNhap.setName("jbtnDangNhap"); // NOI18N
         jbtnDangNhap.addActionListener(new java.awt.event.ActionListener() {

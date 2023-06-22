@@ -61,7 +61,7 @@ public class TraCuuTB extends javax.swing.JPanel {
         }
     }
 
-    public void refreshTable() {
+    public void initTable() {
         DefaultTableModel tbModel = (DefaultTableModel) jtbThietBi.getModel();
         tbModel.setRowCount(0);
         for (ThietBi x1 : new ThietBiDAO().getAll()) {
@@ -105,7 +105,7 @@ public class TraCuuTB extends javax.swing.JPanel {
     }
 
     public void filterRow() {
-        refreshTable();
+        initTable();
         jtfTimTen.setText(jtfTimTen.getText().trim());
         jtfTimPhong.setText(jtfTimPhong.getText().trim());
         DefaultTableModel tbModel = (DefaultTableModel) jtbThietBi.getModel();
@@ -313,7 +313,9 @@ public class TraCuuTB extends javax.swing.JPanel {
 
         jbtnTim.setBackground(new java.awt.Color(204, 255, 255));
         jbtnTim.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbtnTim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pictrue/search.png"))); // NOI18N
         jbtnTim.setText("Tìm");
+        jbtnTim.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnTim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnTimActionPerformed(evt);
@@ -364,14 +366,14 @@ public class TraCuuTB extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(38, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jbtnTim, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbtnTim)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -383,7 +385,7 @@ public class TraCuuTB extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jbtnTim, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jbtnTim, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 

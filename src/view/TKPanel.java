@@ -24,6 +24,7 @@ public class TKPanel extends javax.swing.JPanel {
 
     public void refresh() {
         Calendar cal = Calendar.getInstance();
+        jdcEnd.setDate(cal.getTime());
         cal.add(Calendar.YEAR, -1);
         jdcStart.setDate(cal.getTime());
         jtfTimKiem.setText("");
@@ -296,9 +297,9 @@ public class TKPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jpnHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 

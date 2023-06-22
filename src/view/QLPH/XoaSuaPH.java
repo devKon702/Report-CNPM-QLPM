@@ -1,24 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view.QLPH;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dao.DAO;
-import dao.TrangThaiDAO;
 import dao.PhongHocDAO;
-import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import dao.TaiKhoanDAO;
 import java.sql.SQLException;
+import java.util.concurrent.CountDownLatch;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import model.PhongHoc;
+import model.TaiKhoan;
+import view.LoadingDialog;
+import view.NhanVienPanel;
 import view.PHPanel;
+import view.TBPanel;
+import view.TCPanel;
+import view.TKPanel;
 
 /**
  *
@@ -46,16 +43,51 @@ public class XoaSuaPH extends javax.swing.JFrame {
     }
 
     public void sua() {
+        if (!jtfPhong.getText().matches("^[A-Za-z0-9]{4}$")) {
+            JOptionPane.showMessageDialog(this, "Tên phòng không hợp lệ\nVui lòng theo định dạng 4 kí tự, không kí tự đặc biệt và khoảng trống");
+            return;
+        }
         int trangThai = jrbSanSang.isSelected() ? 3 : 5;
         PhongHoc a = new PhongHoc(jtfPhong.getText().toUpperCase().trim(), trangThai);
         String sql = "Update PHONGHOC "
-                    + "set MAPHONG = '" + jtfPhong.getText().toUpperCase().trim() + "'"
-                    + ", TRANGTHAI = " + trangThai + " "
-                    + "Where MAPHONG = '" + ph.getMaPhong() + "'";
+                + "set MAPHONG = '" + jtfPhong.getText().toUpperCase().trim() + "'"
+                + ", TRANGTHAI = " + trangThai + " "
+                + "Where MAPHONG = '" + ph.getMaPhong() + "'";
         try {
             DAO.executeUpdateSp(sql);
-            this.dispose();
-            pr.getPr().refreshAll();
+            LoadingDialog ld = new LoadingDialog(this, "Đang xử lí");
+            new Thread(() -> {
+                ld.setVisible(true);
+            }).start();
+            CountDownLatch latch = new CountDownLatch(4);
+            try {
+                Thread t1 = new Thread(() -> {
+                    this.pr.getPr().getTbPanel().filterRows();
+                    latch.countDown();
+                });
+                Thread t2 = new Thread(() -> {
+                    this.pr.getPr().getPhPanel().filterRows();
+                    latch.countDown();
+                });
+                Thread t3 = new Thread(() -> {
+                    this.pr.getPr().getTcPanel().filter();
+                    latch.countDown();
+                });
+                Thread t4 = new Thread(() -> {
+                    TaiKhoan tk = new TaiKhoanDAO().get(this.pr.getPr().getUserName());
+                    this.pr.getPr().getTkPanel().filterRows();
+                    latch.countDown();
+                });
+                t1.start();
+                t2.start();
+                t3.start();
+                t4.start();
+                latch.await();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(NhanVienPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                ld.setVisible(false);
+            }
             JOptionPane.showMessageDialog(this, "Cập nhật thành công");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Vui lòng kiểm tra lại mã phòng");
@@ -70,10 +102,10 @@ public class XoaSuaPH extends javax.swing.JFrame {
         } else if (JOptionPane.showConfirmDialog(this, "Xác nhận xóa phòng " + ph.getMaPhong(), "", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             if (new PhongHocDAO().delete(ph)) {
                 new Thread(() -> {
-                    pr.refreshTable();
+                    pr.filterRows();
                 }).start();
                 new Thread(() -> {
-                    pr.getPr().getTcPanel().refresh();
+                    pr.getPr().getTcPanel().filter();
                 }).start();
                 JOptionPane.showMessageDialog(this, "Xóa thành công");
                 this.dispose();

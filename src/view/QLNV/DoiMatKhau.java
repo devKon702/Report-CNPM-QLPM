@@ -74,6 +74,7 @@ public class DoiMatKhau extends javax.swing.JFrame {
         jbtnDoi.setBackground(new java.awt.Color(204, 204, 255));
         jbtnDoi.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jbtnDoi.setText("Đổi");
+        jbtnDoi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnDoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnDoiActionPerformed(evt);

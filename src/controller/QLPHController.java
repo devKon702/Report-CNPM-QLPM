@@ -32,7 +32,7 @@ public class QLPHController {
                 else 
                     for(String x : root.getCheckTrangThai()){
                         if(x.equals(jcb.getText())){
-                            root.getCheckTrangThai().remove(x);
+                            root.getCheckTrangThai().remove(jcb.getText());
                             break;
                         }
                         
