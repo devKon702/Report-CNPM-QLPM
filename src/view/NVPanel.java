@@ -1,11 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package view;
 
 import com.toedter.calendar.JDateChooser;
-import controller.QLNVController;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -210,6 +206,7 @@ public class NVPanel extends javax.swing.JPanel {
 
         jbtnThem.setBackground(new java.awt.Color(153, 255, 153));
         jbtnThem.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jbtnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pictrue/done_outline.png"))); // NOI18N
         jbtnThem.setText("Thêm");
         jbtnThem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnThem.addActionListener(new java.awt.event.ActionListener() {
@@ -321,27 +318,34 @@ public class NVPanel extends javax.swing.JPanel {
 
     private void jbtnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnThemActionPerformed
 
-        if (jtfTen.getText().trim().equals("") || jtfCCCD.getText().trim().equals("") || jtfEmail.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(this, "Các thông tin tên, cccd, email không được để trống");
-            return;
-        }
-        if (!InputValidator.validateIdentityCard(jtfCCCD.getText())) {
-            JOptionPane.showMessageDialog(this, "CCCD có 10 hoặc 12 kí tự số, vui lòng kiểm tra lại");
-            return;
-        }
-        if (!InputValidator.validateEmail(jtfEmail.getText())) {
-            JOptionPane.showMessageDialog(this, "Vui lòng kiểm tra lại email");
-            return;
-        }
-        if (!jtfSDT.getText().isEmpty() && !InputValidator.validatePhoneNumber(jtfSDT.getText())) {
-            JOptionPane.showMessageDialog(this, "Số điện thoại bắt đàu là 0 và 9 kí tự số liền kề, vui lòng kiểm tra lại");
+        if (jtfTen.getText().trim().equals("") || jtfCCCD.getText().trim().equals("") || jtfEmail.getText().trim().equals("") || jtfSDT.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Các thông tin tên, cccd, email,số điện thoại không được để trống");
             return;
         }
         if (!InputValidator.validateFullName(jtfTen.getText())) {
             JOptionPane.showMessageDialog(this, "Tên không được chứa số và kí tự đặc biệt");
             return;
         }
-
+        if(jtfTen.getText().trim().length()>50){
+            JOptionPane.showMessageDialog(this, "Tên không được quá 50 kí tự");
+            return;
+        }
+        if (!InputValidator.validateIdentityCard(jtfCCCD.getText())) {
+            JOptionPane.showMessageDialog(this, "CCCD chỉ bao gồm 10 hoặc 12 kí tự số, vui lòng kiểm tra lại");
+            return;
+        }
+        if(new NhanVienDAO().getNhanVien_CCCD(jtfCCCD.getText()) != null){
+            JOptionPane.showMessageDialog(this, "Trùng CCCD, hãy kiểm tra lại");
+            return;
+        }
+        if (!InputValidator.validateEmail(jtfEmail.getText())) {
+            JOptionPane.showMessageDialog(this, "Email không hợp lệ, vui lòng kiểm tra lại email\nVí dụ: xxx@gmail.com");
+            return;
+        }
+        if (!InputValidator.validatePhoneNumber(jtfSDT.getText())) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại bắt đầu là 0 và 9 kí tự số liền kề, vui lòng kiểm tra lại");
+            return;
+        }
         new ThemNV(this).setVisible(true);
     }//GEN-LAST:event_jbtnThemActionPerformed
 

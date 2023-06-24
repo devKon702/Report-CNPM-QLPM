@@ -61,9 +61,6 @@ public class QLTBController {
 
         });
 
-        root.getJlbTim().addMouseListener(new ButtonAnimation(root.getJlbTim(), root.getJpnTim()));
-        root.getJlbThem().addMouseListener(new ButtonAnimation(root.getJlbThem(), root.getJpnThem()));
-
         root.getJcbRemote().addActionListener(new CheckLoaiAction());
         root.getJcbMicro().addActionListener(new CheckLoaiAction());
         root.getJcbHDMI().addActionListener(new CheckLoaiAction());
@@ -75,57 +72,6 @@ public class QLTBController {
         root.getJcbDangMuon().addActionListener(new CheckTrangThaiAction());
         root.getJcbHong().addActionListener(new CheckTrangThaiAction());
         root.getJcbSanSang().addActionListener(new CheckTrangThaiAction());
-    }
-
-    class ButtonAnimation implements MouseListener {
-
-        private JLabel jlb;
-        private JPanel jpn;
-
-        public ButtonAnimation() {
-        }
-
-        public ButtonAnimation(JLabel jtf, JPanel jpn) {
-            this.jlb = jtf;
-            this.jpn = jpn;
-        }
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(QLTBController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            switch (this.jlb.getName()) {
-                case "Tim":
-                    new Thread(() -> {
-                        root.filterRows();
-                    }).start();
-                    break;
-                case "ThemThietBi":
-                    new ThemTB(root).setVisible(true);
-                    break;
-            }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-            this.jpn.setBackground(new Color(204, 204, 255));
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-            this.jpn.setBackground(new Color(153, 204, 255));
-        }
     }
 
     class CheckLoaiAction implements ActionListener {

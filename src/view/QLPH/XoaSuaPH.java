@@ -43,8 +43,13 @@ public class XoaSuaPH extends javax.swing.JFrame {
     }
 
     public void sua() {
-        if (!jtfPhong.getText().matches("^[A-Za-z0-9]{4}$")) {
-            JOptionPane.showMessageDialog(this, "Tên phòng không hợp lệ\nVui lòng theo định dạng 4 kí tự, không kí tự đặc biệt và khoảng trống");
+        String ten = jtfPhong.getText().trim().toUpperCase();
+        if(ten.length() == 0){
+            JOptionPane.showMessageDialog(this, "Vui lòng điền mã phòng");
+            return;
+        }
+        if (!ten.matches("^[A-Za-z0-9]{1,4}$")) {
+            JOptionPane.showMessageDialog(this, "Tên phòng không hợp lệ\nVui lòng không quá 4 kí tự, không chứa kí tự đặc biệt và khoảng trống");
             return;
         }
         int trangThai = jrbSanSang.isSelected() ? 3 : 5;
@@ -90,7 +95,7 @@ public class XoaSuaPH extends javax.swing.JFrame {
             }
             JOptionPane.showMessageDialog(this, "Cập nhật thành công");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Vui lòng kiểm tra lại mã phòng");
+            JOptionPane.showMessageDialog(this, "Cập nhật thất bại, hãy đảm bảo mã phòng không trùng");
         }
     }
 
@@ -110,7 +115,7 @@ public class XoaSuaPH extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Xóa thành công");
                 this.dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "Xóa thất bại");
+                JOptionPane.showMessageDialog(this, "Xóa thất bại, phòng đã từng mượn");
             }
         }
     }
@@ -153,6 +158,7 @@ public class XoaSuaPH extends javax.swing.JFrame {
         jbtnCapNhat.setBackground(new java.awt.Color(204, 255, 204));
         jbtnCapNhat.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jbtnCapNhat.setText("Cập nhật");
+        jbtnCapNhat.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnCapNhat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnCapNhatActionPerformed(evt);
@@ -162,6 +168,7 @@ public class XoaSuaPH extends javax.swing.JFrame {
         jbtnXoa.setBackground(new java.awt.Color(255, 204, 204));
         jbtnXoa.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jbtnXoa.setText("Xóa");
+        jbtnXoa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnXoaActionPerformed(evt);

@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import view.QLTB.ThemTB;
 
 /**
  *
@@ -123,6 +124,8 @@ public class TBPanel extends javax.swing.JPanel {
                 tbModel.removeRow(i);
             } else if (tbModel.getValueAt(i, 3) != null && !tbModel.getValueAt(i, 3).toString().contains(jtfTimPhong.getText().toUpperCase())) {
                 tbModel.removeRow(i);
+            } else if(!jcbChung.isSelected() && tbModel.getValueAt(i, 3) == null){
+                tbModel.removeRow(i);
             }
         }
     }
@@ -161,14 +164,13 @@ public class TBPanel extends javax.swing.JPanel {
         jcbSanSang = new javax.swing.JCheckBox();
         jcbHong = new javax.swing.JCheckBox();
         jcbDangMuon = new javax.swing.JCheckBox();
-        jpnTim = new javax.swing.JPanel();
-        jlbTim = new javax.swing.JLabel();
-        jpnThem = new javax.swing.JPanel();
-        jlbThem = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jtfTimPhong = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        jcbChung = new javax.swing.JCheckBox();
+        jbtnTim = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -320,45 +322,6 @@ public class TBPanel extends javax.swing.JPanel {
                 .addGap(12, 12, 12))
         );
 
-        jpnTim.setBackground(new java.awt.Color(220, 204, 204));
-
-        jlbTim.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jlbTim.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlbTim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pictrue/search.png"))); // NOI18N
-        jlbTim.setToolTipText("Tìm");
-        jlbTim.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jlbTim.setName("Tim"); // NOI18N
-
-        javax.swing.GroupLayout jpnTimLayout = new javax.swing.GroupLayout(jpnTim);
-        jpnTim.setLayout(jpnTimLayout);
-        jpnTimLayout.setHorizontalGroup(
-            jpnTimLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlbTim, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-        );
-        jpnTimLayout.setVerticalGroup(
-            jpnTimLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlbTim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        jpnThem.setBackground(new java.awt.Color(153, 204, 255));
-
-        jlbThem.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jlbThem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlbThem.setText("Thêm");
-        jlbThem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jlbThem.setName("ThemThietBi"); // NOI18N
-
-        javax.swing.GroupLayout jpnThemLayout = new javax.swing.GroupLayout(jpnThem);
-        jpnThem.setLayout(jpnThemLayout);
-        jpnThemLayout.setHorizontalGroup(
-            jpnThemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlbThem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
-        );
-        jpnThemLayout.setVerticalGroup(
-            jpnThemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlbThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setText("Loại");
 
@@ -368,19 +331,44 @@ public class TBPanel extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setText("Phòng");
 
+        jcbChung.setSelected(true);
+        jcbChung.setText("Chung");
+
+        jbtnTim.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jbtnTim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pictrue/search.png"))); // NOI18N
+        jbtnTim.setText("Tìm");
+        jbtnTim.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbtnTim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnTimActionPerformed(evt);
+            }
+        });
+
+        jButton1.setBackground(new java.awt.Color(204, 255, 204));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton1.setText("Thêm");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jtfTimTen, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                        .addComponent(jtfTimPhong))
-                    .addComponent(jLabel4))
-                .addGap(28, 28, 28)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jtfTimPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jcbChung, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfTimTen))
+                .addGap(26, 26, 26)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -389,11 +377,11 @@ public class TBPanel extends javax.swing.JPanel {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jpnTim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jpnThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(59, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jbtnTim)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1)))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -403,19 +391,26 @@ public class TBPanel extends javax.swing.JPanel {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jtfTimTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtfTimPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jpnThem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jpnTim, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jtfTimTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jtfTimPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jcbChung)))
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jbtnTim, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))))
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
@@ -441,25 +436,20 @@ public class TBPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtfTimTenKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTimTenKeyPressed
-//        String s = (jtfTimTen.getText().length()==0?jtfTimTen.getText():jtfTimTen.getText().trim());
-//        System.out.println(s);
-//        if(s.length() != 0){
-//
-//            tbModel.setRowCount(0);
-//            for(ThietBi tb : dsThietBi){
-//                if(tb.getTen().contains(s)){
-//                    tbModel.addRow(new Object[]{tb.getMa(),tb.getTen(),tb.getTenLoai(),tb.getTrangThai()});
-//                }
-//            }
-//        }
-//        else{
-//            tbModel.setRowCount(0);
-//            refresh();
-//        }
+
     }//GEN-LAST:event_jtfTimTenKeyPressed
+
+    private void jbtnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnTimActionPerformed
+        filterRows();
+    }//GEN-LAST:event_jbtnTimActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new ThemTB(this).setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -468,7 +458,9 @@ public class TBPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbtnTim;
     private javax.swing.JCheckBox jcbChiaKhoa;
+    private javax.swing.JCheckBox jcbChung;
     private javax.swing.JCheckBox jcbDangMuon;
     private javax.swing.JCheckBox jcbDayMicro;
     private javax.swing.JCheckBox jcbDayTypeC;
@@ -478,10 +470,6 @@ public class TBPanel extends javax.swing.JPanel {
     private javax.swing.JCheckBox jcbRemote;
     private javax.swing.JCheckBox jcbSanSang;
     private javax.swing.JCheckBox jcbTatCa;
-    private javax.swing.JLabel jlbThem;
-    private javax.swing.JLabel jlbTim;
-    private javax.swing.JPanel jpnThem;
-    private javax.swing.JPanel jpnTim;
     private javax.swing.JTable jtbThietBi;
     private javax.swing.JTextField jtfTimPhong;
     private javax.swing.JTextField jtfTimTen;
@@ -541,22 +529,6 @@ public class TBPanel extends javax.swing.JPanel {
 
     public JCheckBox getJcbTatCa() {
         return jcbTatCa;
-    }
-
-    public JLabel getJlbThem() {
-        return jlbThem;
-    }
-
-    public JLabel getJlbTim() {
-        return jlbTim;
-    }
-
-    public JPanel getJpnThem() {
-        return jpnThem;
-    }
-
-    public JPanel getJpnTim() {
-        return jpnTim;
     }
 
     public JTextField getJtfTimTen() {

@@ -87,14 +87,21 @@ public class CapNhatNV extends javax.swing.JFrame {
         if (ten.length() == 0 || !InputValidator.validateFullName(ten)) {
             error += "Tên đang trống hoặc chứa số, kí tự đặc biệt\n";
         }
+        if(ten.length() >= 50){
+            error += "Tên không được quá 50 kí tự\n";
+        }
         if (!InputValidator.validateIdentityCard(cccd)) {
-            error += "CCCD chưa hợp lệ\n";
+            error += "CCCD chỉ bao gồm 10 hoặc 12 kí tự số\n";
+        }
+        else if(!nv.getCccd().equals(cccd) && new NhanVienDAO().getNhanVien_CCCD(cccd) != null){
+            JOptionPane.showMessageDialog(this, "Trùng CCCD");
+            return;
         }
         if (!InputValidator.validateEmail(email)) {
-            error += "Email không hợp lệ\n";
+            error += "Email theo định dạng xxx@gmail.com\n";
         }
-        if (sdt.length() != 0 && !InputValidator.validatePhoneNumber(sdt)) {
-            error += "Số điện thoại phải là chuỗi 10 số";
+        if (!InputValidator.validatePhoneNumber(sdt)) {
+            error += "Số điện thoại phải là chuỗi 10 số, bắt đầu là 0";
         }
         if (error.length() != 0) {
             JOptionPane.showMessageDialog(this, error);

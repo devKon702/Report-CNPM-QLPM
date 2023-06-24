@@ -29,7 +29,7 @@ public class DoiMatKhau extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(jPanel1, "Sai mật khẩu");
             } else if (!repeatPass.equals(newPass)) {
                 JOptionPane.showMessageDialog(jPanel1, "Xác nhận lại mật khẩu sai");
-            } else {
+            } else if(JOptionPane.showConfirmDialog(this, "Xác nhận đổi mật khẩu?") == JOptionPane.OK_OPTION) {
                 tk.setMk(newPass);
                 if (new TaiKhoanDAO().update(tk)) {
                     JOptionPane.showMessageDialog(jPanel1, "Đổi mật khẩu thành công\nVui lòng đăng nhập lại");

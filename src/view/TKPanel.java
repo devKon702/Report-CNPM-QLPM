@@ -113,7 +113,7 @@ public class TKPanel extends javax.swing.JPanel {
             boolean shouldRemove = true;
 
             if (trangThaiCheck.contains(model.getValueAt(i, 6).toString())) {
-                for (int j = 0; j < 3; j++) {
+                for (int j = 0; j <= 3; j++) {
                     String value = model.getValueAt(i, j).toString();
 
                     if (value.contains(jtfTimKiem.getText())) {

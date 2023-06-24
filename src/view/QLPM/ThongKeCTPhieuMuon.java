@@ -141,7 +141,7 @@ public class ThongKeCTPhieuMuon extends javax.swing.JFrame {
         jLabel4.setText("Mã nhân viên:");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel5.setText("Tên:");
+        jLabel5.setText("Họ và tên:");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setText("Lập:");

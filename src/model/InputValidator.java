@@ -13,7 +13,7 @@ public class InputValidator {
 
     public static boolean validateEmail(String email) {
          // Kiểm tra định dạng email
-        return email.matches("^[A-Za-z0-9+_.-]+@(gmail\\.com|student\\.ptithcm\\.edu\\.vn)$");
+        return email.matches("^[A-Za-z0-9+_.-]+@(gmail\\.com)$");
     }
 
      public static boolean validateIdentityCard(String identityCard) {

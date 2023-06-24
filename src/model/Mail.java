@@ -6,8 +6,6 @@ import javax.mail.*;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.swing.JOptionPane;
-
 public class Mail {
     
     public static String userMail = "nnk070dev@gmail.com";
@@ -53,7 +51,7 @@ public class Mail {
         System.out.println("Gửi mail thành công");
     }
 
-    public static void sendMessageOutOfDate(String emailAddress, ArrayList<String> tb) throws AddressException, MessagingException {
+    public static void sendMessageOutOfDate(String emailAddress, ArrayList<String> tb, String phong, String han) throws AddressException, MessagingException {
         // Thông tin tài khoản email: userMail, passWord
 
         // Thông tin người nhận
@@ -81,7 +79,9 @@ public class Mail {
 
         // Cấu hình nội dung email
         String content = "Chào bạn,\n\n";
-        content += "Hiện bạn đang có một phiếu mượn quá hạn chưa hoàn tất việc trả các thiết bị: ";
+        content += "Hiện bạn đang có một phiếu mượn quá hạn (" + han + ") chưa hoàn tất việc hoàn trả:"
+                + "\nPhòng: " + phong
+                + "\nCác thiết bị bao gồm: ";
         for(String x : tb){
             content+= x+", ";
         }

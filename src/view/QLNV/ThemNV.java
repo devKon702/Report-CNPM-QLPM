@@ -171,11 +171,11 @@ public class ThemNV extends javax.swing.JFrame {
         jLabel4.setText("Ngày làm:");
 
         jLabel6.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel6.setText("SĐT");
 
         jLabel7.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel7.setText("Email:");
 
         jlbEmail.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N

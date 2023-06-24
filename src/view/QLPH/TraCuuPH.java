@@ -3,6 +3,7 @@ package view.QLPH;
 
 import dao.PhongHocDAO;
 import dao.TrangThaiDAO;
+import java.awt.event.KeyEvent;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import java.util.ArrayList;
@@ -85,7 +86,6 @@ public class TraCuuPH extends javax.swing.JPanel {
         jcbDangMuon = new javax.swing.JCheckBox();
         jcbSanSang = new javax.swing.JCheckBox();
         jLabel4 = new javax.swing.JLabel();
-        jbtnTim = new javax.swing.JButton();
 
         jtbPhongHoc.setAutoCreateRowSorter(true);
         jtbPhongHoc.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
@@ -113,7 +113,18 @@ public class TraCuuPH extends javax.swing.JPanel {
             }
         });
         jtbPhongHoc.setRowHeight(30);
+        jtbPhongHoc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtbPhongHocMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtbPhongHoc);
+
+        jtfTimPhong.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfTimPhongKeyReleased(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jLabel3.setText("Phòng");
@@ -169,32 +180,20 @@ public class TraCuuPH extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jLabel4.setText("Trạng thái");
 
-        jbtnTim.setBackground(new java.awt.Color(204, 204, 204));
-        jbtnTim.setText("Tìm");
-        jbtnTim.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jbtnTim.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnTimActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(144, Short.MAX_VALUE)
+                .addContainerGap(143, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jtfTimPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
-                        .addComponent(jbtnTim))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addContainerGap(151, Short.MAX_VALUE))
+                .addContainerGap(271, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,9 +207,7 @@ public class TraCuuPH extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbtnTim, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(19, 19, 19))
         );
 
@@ -230,21 +227,33 @@ public class TraCuuPH extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbtnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnTimActionPerformed
-        filterRow();
-    }//GEN-LAST:event_jbtnTimActionPerformed
-
     private void jcbBaoTriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcbBaoTriMouseClicked
         setDsCheckTrangThai();
+        filterRow();
     }//GEN-LAST:event_jcbBaoTriMouseClicked
 
     private void jcbDangMuonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcbDangMuonMouseClicked
         setDsCheckTrangThai();
+        filterRow();
     }//GEN-LAST:event_jcbDangMuonMouseClicked
 
     private void jcbSanSangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcbSanSangMouseClicked
         setDsCheckTrangThai();
+        filterRow();
     }//GEN-LAST:event_jcbSanSangMouseClicked
+
+    private void jtfTimPhongKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTimPhongKeyReleased
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            filterRow();
+        }
+    }//GEN-LAST:event_jtfTimPhongKeyReleased
+
+    private void jtbPhongHocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbPhongHocMouseClicked
+        if(evt.getClickCount() == 2 && jtbPhongHoc.getSelectedRow() != -1){
+            String maPhong = jtbPhongHoc.getValueAt(jtbPhongHoc.getSelectedRow(), 0).toString();
+            new ChiTietPhong(maPhong).setVisible(true);
+        }
+    }//GEN-LAST:event_jtbPhongHocMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -253,7 +262,6 @@ public class TraCuuPH extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton jbtnTim;
     private javax.swing.JCheckBox jcbBaoTri;
     private javax.swing.JCheckBox jcbDangMuon;
     private javax.swing.JCheckBox jcbSanSang;

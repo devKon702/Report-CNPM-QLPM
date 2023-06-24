@@ -24,7 +24,11 @@ public class ThemPH extends javax.swing.JFrame {
     }
 
     public void them() {
-        String s = jtfMaPhong.getText().toUpperCase();
+        String s = jtfMaPhong.getText().toUpperCase().trim();
+        if(s.length() == 0){
+            JOptionPane.showMessageDialog(this, "Vui lòng điền mã phòng");
+            return;
+        }
         if (!s.matches("^[A-Za-z0-9]{1,4}$")) {
             JOptionPane.showMessageDialog(this, "Vui lòng điền mã phòng có từ 4 kí tự trở xuống, không chứa kí tự đặc biệt và khoảng trống");
             return;
@@ -67,6 +71,7 @@ public class ThemPH extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(204, 255, 204));
         jButton1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jButton1.setText("Thêm");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);

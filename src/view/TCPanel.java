@@ -176,7 +176,7 @@ public class TCPanel extends javax.swing.JPanel {
         );
 
         jScrollPane2.setViewportView(jpnMain);
-        jpnMain.setLayout(new GridLayout(0, 4)); // 0 là số hàng không giới hạn, 2 là số cột.
+        jpnMain.setLayout(new GridLayout(2, 4)); // 0 là số hàng không giới hạn, 2 là số cột.
         jpnMain.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Tạo khoảng cách giữa viền JPanel và các thành phần bên trong
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

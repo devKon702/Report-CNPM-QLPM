@@ -158,7 +158,7 @@ public class PHPanel extends javax.swing.JPanel {
             jtbPhongHoc.getColumnModel().getColumn(1).setMaxWidth(1000);
         }
 
-        jPanel3.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         jtfTimPhong.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -217,7 +217,8 @@ public class PHPanel extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jLabel4.setText("Trạng thái");
 
-        jButton1.setBackground(new java.awt.Color(204, 204, 204));
+        jButton1.setBackground(new java.awt.Color(204, 255, 204));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pictrue/autorenew.png"))); // NOI18N
         jButton1.setText("Tải lại");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -241,11 +242,11 @@ public class PHPanel extends javax.swing.JPanel {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(140, Short.MAX_VALUE)
+                .addContainerGap(135, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jtfTimPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -254,7 +255,7 @@ public class PHPanel extends javax.swing.JPanel {
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

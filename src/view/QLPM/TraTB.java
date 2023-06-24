@@ -568,7 +568,7 @@ public class TraTB extends javax.swing.JFrame {
         }
 
         try {
-            Mail.sendMessageOutOfDate(jtbThietBi.getValueAt(index, 4).toString(), tb);
+            Mail.sendMessageOutOfDate(jtbThietBi.getValueAt(index, 4).toString(), tb, jlbPhongHoc.getText(), jlbHan.getText());
             JOptionPane.showMessageDialog(this, "Gửi mail thành công");
         } catch (MessagingException ex) {
             JOptionPane.showMessageDialog(this, "Gửi mail thất bại\n Vui lòng kiểm tra lại mật khẩu email của bạn, địa chỉ email của sinh viên cần thông báo", "Lỗi", JOptionPane.ERROR_MESSAGE);

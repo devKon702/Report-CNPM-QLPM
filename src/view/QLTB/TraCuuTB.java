@@ -118,6 +118,8 @@ public class TraCuuTB extends javax.swing.JPanel {
                 tbModel.removeRow(i);
             } else if (tbModel.getValueAt(i, 3) != null && !tbModel.getValueAt(i, 3).toString().contains(jtfTimPhong.getText().toUpperCase())) {
                 tbModel.removeRow(i);
+            } else if(!jcbChung.isSelected() && tbModel.getValueAt(i, 3) == null){
+                tbModel.removeRow(i);
             }
         }
     }
@@ -147,8 +149,11 @@ public class TraCuuTB extends javax.swing.JPanel {
         jtfTimTen = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jtfTimPhong = new javax.swing.JTextField();
+        jcbChung = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbThietBi = new javax.swing.JTable();
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jcbHDMI.setSelected(true);
         jcbHDMI.setText("Dây HDMI");
@@ -331,6 +336,9 @@ public class TraCuuTB extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setText("Phòng");
 
+        jcbChung.setSelected(true);
+        jcbChung.setText("Chung");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -344,7 +352,11 @@ public class TraCuuTB extends javax.swing.JPanel {
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jtfTimPhong))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jtfTimPhong)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jcbChung)
+                        .addGap(12, 12, 12)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -357,7 +369,9 @@ public class TraCuuTB extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtfTimPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtfTimPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbChung))
                 .addContainerGap())
         );
 
@@ -513,6 +527,7 @@ public class TraCuuTB extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtnTim;
     private javax.swing.JCheckBox jcbChiaKhoa;
+    private javax.swing.JCheckBox jcbChung;
     private javax.swing.JCheckBox jcbDangMuon;
     private javax.swing.JCheckBox jcbDayMicro;
     private javax.swing.JCheckBox jcbDayTypeC;

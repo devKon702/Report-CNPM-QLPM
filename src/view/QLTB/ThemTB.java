@@ -16,53 +16,6 @@ public class ThemTB extends javax.swing.JFrame {
         this.pr = pr;
         this.setLocationRelativeTo(null);
     }
-//    public void setEvent(){   
-//        jlbThem.addMouseListener(new MouseListener(){
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                String loai = (String)jcbLoai.getSelectedItem();
-//                String ten = jtfTen.getText();
-//                String phong = jtfPhong.getText().toUpperCase().trim();
-//                String error = "";
-//                if(ten.length() == 0) error+="Tên không được bỏ trống\n";
-//                if(phong.length() != 0 && new PhongHocDAO().getPhongHoc(phong) == null) error+="Không tìm thấy phòng học";
-//                if(!error.equals("")){
-//                    JOptionPane.showMessageDialog(jpnThemThietBi, error);
-//                }
-//                else{
-//                    if(new ThietBiDAO().insert(new ThietBi(null, ten, new LoaiDAO().getMaLoai(loai), phong.length()==0?null:phong, 1))){
-//                        JOptionPane.showMessageDialog(jpnThemThietBi, "Thêm thành công");
-//                        new Thread(() -> {
-//                            pr.filterRows();// Làm mới màn hình hiển thị hiện tại
-//                        }).start();
-//                        new Thread(() -> {
-//                            pr.getPr().getPhPanel().initTable();
-//                        }).start();
-//                    }
-//                    else JOptionPane.showMessageDialog(jpnThemThietBi, "Lỗi thêm thiết bị");
-//                }
-//            }
-//
-//            @Override
-//            public void mousePressed(MouseEvent e) {
-//            }
-//
-//            @Override
-//            public void mouseReleased(MouseEvent e) {
-//            }
-//
-//            @Override
-//            public void mouseEntered(MouseEvent e) {
-//                jpnThem.setBackground(new Color(227,204,255));
-//            }
-//
-//            @Override
-//            public void mouseExited(MouseEvent e) {
-//                jpnThem.setBackground(new Color(204,204,255));
-//            }
-//        });
-//    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -143,11 +96,11 @@ public class ThemTB extends javax.swing.JFrame {
                 .addGroup(jpnThemThietBiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtfTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
+                .addGap(18, 18, 18)
                 .addGroup(jpnThemThietBiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
             .addGroup(jpnThemThietBiLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jbtnThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -170,8 +123,8 @@ public class ThemTB extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jpnThemThietBi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jpnThemThietBi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -183,7 +136,9 @@ public class ThemTB extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -204,13 +159,20 @@ public class ThemTB extends javax.swing.JFrame {
         String loai = (String) jcbLoai.getSelectedItem();
         String ten = jtfTen.getText().trim();
         String phong = jtfPhong.getText().toUpperCase().trim();
-
+        if(ten.length() == 0){
+            JOptionPane.showMessageDialog(this, "Vui lòng điền tên");
+            return;
+        }
         if (ten.length() > 50) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập tên dưới 50 kí tự");
             return;
         }
-        if (ten.matches("[^A-Za-z0-9 ]")) {
-            JOptionPane.showMessageDialog(this, "Tên thiết bị không chứa kí tự đặc biệt");
+        if (!ten.matches("^[A-Za-z0-9 \\p{L}]+$")) {
+            JOptionPane.showMessageDialog(this, "Tên thiết bị chỉ bao gồm chữ cái, số và khoảng trắng");
+            return;
+        }
+        if(phong.length() > 4){
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã phòng không quá 4 kí tự");
             return;
         }
         if (phong.length() != 0 && new PhongHocDAO().getPhongHoc(phong) == null) {

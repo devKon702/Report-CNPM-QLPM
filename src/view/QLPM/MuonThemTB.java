@@ -935,6 +935,7 @@ public class MuonThemTB extends javax.swing.JFrame {
                     themThietBi();
                     initTable();
                     root.getPr().getTbPanel().filterRows();
+                    root.getPr().getTkPanel().filterRows();
                     ld.setVisible(false);
                     JOptionPane.showMessageDialog(this, "Mượn thêm thành công");
                 } catch (SQLException ex) {

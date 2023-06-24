@@ -541,8 +541,12 @@ public class LapPhieuMuon extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Không tìm được sinh viên");
             return;
         }
+        if(jtf_sdt.getText().length() == 0){
+            JOptionPane.showMessageDialog(this, "Vui lòng điền số điện thoại");
+            return;
+        }
         if (!InputValidator.validatePhoneNumber(jtf_sdt.getText())) {
-            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ, phải là số gồm 0 và 9 kí tự số liền kề");
+            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ, phải là chuỗi số gồm 0 và 9 kí tự số liền kề");
             return;
         }
         
@@ -921,7 +925,6 @@ public class LapPhieuMuon extends javax.swing.JFrame {
         stmt.executeUpdate();
         stmt.close();
         conn.close();
-        this.root.getPr().refreshAll();
 
         Connection conn2;
         PreparedStatement stmt2;

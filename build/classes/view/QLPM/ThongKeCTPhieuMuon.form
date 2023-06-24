@@ -213,7 +213,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="12" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="T&#xea;n:"/>
+            <Property name="text" type="java.lang.String" value="H&#x1ecd; v&#xe0; t&#xea;n:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">

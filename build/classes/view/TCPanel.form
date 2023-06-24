@@ -219,7 +219,7 @@
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="jpnMain.setLayout(new GridLayout(0, 4)); // 0 l&#xe0; s&#x1ed1; h&#xe0;ng kh&#xf4;ng gi&#x1edb;i h&#x1ea1;n, 2 l&#xe0; s&#x1ed1; c&#x1ed9;t.&#xa;jpnMain.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // T&#x1ea1;o kho&#x1ea3;ng c&#xe1;ch gi&#x1eef;a vi&#x1ec1;n JPanel v&#xe0; c&#xe1;c th&#xe0;nh ph&#x1ea7;n b&#xea;n trong"/>
+            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="jpnMain.setLayout(new GridLayout(2, 4)); // 0 l&#xe0; s&#x1ed1; h&#xe0;ng kh&#xf4;ng gi&#x1edb;i h&#x1ea1;n, 2 l&#xe0; s&#x1ed1; c&#x1ed9;t.&#xa;jpnMain.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // T&#x1ea1;o kho&#x1ea3;ng c&#xe1;ch gi&#x1eef;a vi&#x1ec1;n JPanel v&#xe0; c&#xe1;c th&#xe0;nh ph&#x1ea7;n b&#xea;n trong"/>
           </AuxValues>
 
           <Layout>
