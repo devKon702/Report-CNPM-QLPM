@@ -590,13 +590,17 @@ public class MuonThemTB extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập thông tin sinh viên");
             return;
         }
-        if (!InputValidator.validatePhoneNumber(jtfSDT.getText())) {
-            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ, phải là chuỗi gồm 0 và 9 kí tự số liền kề");
-            return;
-        }
         SinhVien sv = SinhVien.getSinhVien(jtfMSSV.getText());
         if (sv == null) {
             JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin sinh viên");
+            return;
+        }
+        if(jtfSDT.getText().length()==0){
+            JOptionPane.showMessageDialog(this, "Vui lòng điền số điện thoại");
+            return;
+        }
+        if (!InputValidator.validatePhoneNumber(jtfSDT.getText())) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ, phải là chuỗi gồm 0 và 9 kí tự số liền kề");
             return;
         }
         setname(sv.getTEN());

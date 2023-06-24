@@ -27,7 +27,7 @@ public class XoaSuaTB extends javax.swing.JFrame {
 
     public void sua() {
         String ten = jtfTen.getText().trim();
-        String phong = jtfPhong.getText().trim().toUpperCase();
+        String phong = jtfPhong.getText().toUpperCase().trim();
         if (ten.length() == 0) {
             JOptionPane.showMessageDialog(this, "Vui lòng điền tên");
             return;
@@ -52,7 +52,8 @@ public class XoaSuaTB extends javax.swing.JFrame {
         if (x != null) {
             x.setTen(ten);
             x.setTenLoai(jcbLoai.getSelectedItem().toString());
-            x.setPhong(phong);
+            if(phong.length()==0) x.setPhong(null);
+            else x.setPhong(phong);
             x.setTenTrangThai(jcbTrangThai.getSelectedItem().toString());
             if (JOptionPane.showConfirmDialog(this, "Xác nhận sửa thông tin?", "", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 if (!new ThietBiDAO().update(x)) {

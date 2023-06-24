@@ -21,25 +21,36 @@ public class DoiMatKhau extends javax.swing.JFrame {
         String oldPass = new String(jpfMatKhauHienTai.getPassword());
         String newPass = new String(jpfMatKhauMoi.getPassword());
         String repeatPass = new String(jpfXacNhanLai.getPassword());
+        if (jpfMatKhauHienTai.getPassword().length == 0 ||jpfMatKhauMoi.getPassword().length == 0) {
+            JOptionPane.showMessageDialog(this, "Còn thông tin chưa điền");
+            return;
+        } else {
+        }
         if (oldPass.contains(" ") || newPass.contains(" ")) {
             JOptionPane.showMessageDialog(jPanel1, "Mật khẩu không được chứa khoảng trắng");
-        } else {
-            TaiKhoan tk = new TaiKhoanDAO().get(userName);
-            if (!oldPass.equals(tk.getMk())) {
-                JOptionPane.showMessageDialog(jPanel1, "Sai mật khẩu");
-            } else if (!repeatPass.equals(newPass)) {
-                JOptionPane.showMessageDialog(jPanel1, "Xác nhận lại mật khẩu sai");
-            } else if(JOptionPane.showConfirmDialog(this, "Xác nhận đổi mật khẩu?") == JOptionPane.OK_OPTION) {
-                tk.setMk(newPass);
-                if (new TaiKhoanDAO().update(tk)) {
-                    JOptionPane.showMessageDialog(jPanel1, "Đổi mật khẩu thành công\nVui lòng đăng nhập lại");
-                    this.dispose();
-                    mf.logout();
-                } else {
-                    JOptionPane.showMessageDialog(jPanel1, "Đổi mật khẩu thất bại");
-                }
+            return;
+        }
+        if (newPass.length() > 50) {
+            JOptionPane.showMessageDialog(this, "Vui lòng đặt mật khẩu dưới 50 kí tự");
+            return;
+        }
+
+        TaiKhoan tk = new TaiKhoanDAO().get(userName);
+        if (!oldPass.equals(tk.getMk())) {
+            JOptionPane.showMessageDialog(jPanel1, "Sai mật khẩu");
+        } else if (!repeatPass.equals(newPass)) {
+            JOptionPane.showMessageDialog(jPanel1, "Xác nhận lại mật khẩu sai");
+        } else if (JOptionPane.showConfirmDialog(this, "Xác nhận đổi mật khẩu?") == JOptionPane.OK_OPTION) {
+            tk.setMk(newPass);
+            if (new TaiKhoanDAO().update(tk)) {
+                JOptionPane.showMessageDialog(jPanel1, "Đổi mật khẩu thành công\nVui lòng đăng nhập lại");
+                this.dispose();
+                mf.logout();
+            } else {
+                JOptionPane.showMessageDialog(jPanel1, "Đổi mật khẩu thất bại");
             }
         }
+
     }
 
     /**
