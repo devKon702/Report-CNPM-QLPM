@@ -4,4 +4,4 @@
 # Phần mềm phát triển bằng ngôn ngữ Java + Java Swing, build trên Netbean
 # Cách mở
 # 1. Mở project bằng Netbean
-# 2. Chạy dist/run.bat
+# 2. Chạy dist/CNPM.jar
